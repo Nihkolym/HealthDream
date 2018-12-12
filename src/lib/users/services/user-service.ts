@@ -1,4 +1,5 @@
 import { IUser, User } from "../models/User";
+import * as jwt from "jsonwebtoken";
 
 export class UserService {
     public static async getAllUsers(): Promise<IUser[]> {
@@ -47,5 +48,25 @@ export class UserService {
                 },
             },
         );
+    }
+
+    public static async getUserByEmail(email: any): Promise<IUser> {
+        const user: IUser = await User.findOne({
+            where: {
+                email,
+            },
+        });
+
+        if (user) {
+            return user;
+        } else {
+            throw new Error("400");
+        }
+    }
+
+    public static async getUserByToken(token: string): Promise<IUser> {
+        const body: any = jwt.decode(token);
+
+        return await this.getUserByEmail(body.email);
     }
 }

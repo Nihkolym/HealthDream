@@ -1,37 +1,21 @@
 import * as http from "http";
-import * as express from "express";
-import { Application, Router } from "express";
-import * as bodyParser from "body-parser";
-import * as cors from "cors";
-import userRouter from "./lib/users/routes/user-router";
+import { Server } from "http";
+import DBService from "./lib/db/services/db-service";
+import app from "./lib/server/models/express-application";
+import AuthService from "./lib/authentication/services/auth-service";
 
-export class Server {
-    public app: Application;
+const initApplication = async () => {
+    try {
+        const server: Server = http.createServer(app);
 
-    private router: Router;
+        await DBService.initDataBase();
 
-    constructor() {
-        try {
-            this.app = express();
-            this.router = Router();
+        AuthService.setUpPassport();
 
-            this.app.use(bodyParser.urlencoded({ extended: true }));
-            this.app.use(bodyParser.json());
-
-            this.app.use(cors());
-
-            this.setRoutes();
-        } catch (error) {
-            global.console.log("Error");
-        }
+        server.listen(process.env.PORT);
+    } catch (error) {
+        throw new Error("500");
     }
+};
 
-    private setRoutes() {
-        this.app.use("/api/v1", this.router);
-        this.router.use("/users", userRouter);
-    }
-}
-
-const server = new Server();
-
-http.createServer(server.app).listen("8080");
+initApplication();

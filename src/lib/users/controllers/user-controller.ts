@@ -10,9 +10,17 @@ export default class UserController {
     }
 
     public static async getUser(req: Request, res: Response): Promise<void> {
-        const userId = req.params.id;
+        const token = req.headers.authorization;
 
-        const user: IUser = await UserService.getUser(userId);
+        const user: IUser = await UserService.getUserByToken(token);
+
+        res.status(200).send(user);
+    }
+
+    public static async getMe(req: Request, res: Response): Promise<void> {
+        const token = req.headers.authorization;
+
+        const user: IUser = await UserService.getUserByToken(token);
 
         res.status(200).send(user);
     }
@@ -27,7 +35,7 @@ export default class UserController {
 
     public static async updateUser(req: Request, res: Response): Promise<void> {
         const userId = req.params.id;
-        const model = req.body;
+        const model = req.body.user;
 
         await UserService.updateUser(model, userId);
 
