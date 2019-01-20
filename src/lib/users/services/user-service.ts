@@ -1,5 +1,7 @@
+import { PersonalReccomandation } from "./../../personalRecommandation/models/PersonalRecommandation";
 import { IUser, User } from "../models/User";
 import * as jwt from "jsonwebtoken";
+import { IPersonalRecommandation } from "../../personalRecommandation/models/PersonalRecommandation";
 
 export class UserService {
     public static async getAllUsers(): Promise<IUser[]> {
@@ -14,6 +16,10 @@ export class UserService {
         } else {
             throw Error("500");
         }
+    }
+
+    public static async getMyRecommandation(id): Promise<IPersonalRecommandation> {
+        return await PersonalReccomandation.findByPk(id);
     }
 
     public static async addUser(model: IUser): Promise<IUser> {
@@ -40,14 +46,22 @@ export class UserService {
         }
     }
 
-    public static async updateUser(model: IUser, userId: number): Promise<void> {
-        await User.update(model,
+    public static async updateUser(model: IUser, userId: number): Promise<number> {
+        return (await User.update(model,
             {
                 where: {
                     id: userId,
                 },
             },
-        );
+        ))[0];
+    }
+
+    public static async changePassword(userId: number, newPass: string) {
+        await User.update({password: newPass}, {
+            where: {
+                id: userId,
+            },
+        });
     }
 
     public static async getUserByEmail(email: any): Promise<IUser> {

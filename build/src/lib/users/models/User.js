@@ -31,11 +31,8 @@ exports.User = db_1.default.define("user", {
             len: [3, 255],
         },
     },
-    dateOfBirth: {
-        type: Sequelize.STRING,
-        validate: {
-            len: [0, 255],
-        },
+    age: {
+        type: Sequelize.INTEGER,
     },
     password: {
         type: Sequelize.STRING,

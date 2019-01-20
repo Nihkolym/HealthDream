@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const PersonalRecommandation_1 = require("./../../personalRecommandation/models/PersonalRecommandation");
 const User_1 = require("../models/User");
 const jwt = require("jsonwebtoken");
 class UserService {
@@ -25,6 +26,11 @@ class UserService {
             else {
                 throw Error("500");
             }
+        });
+    }
+    static getMyRecommandation(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield PersonalRecommandation_1.PersonalReccomandation.findByPk(id);
         });
     }
     static addUser(model) {
@@ -52,7 +58,16 @@ class UserService {
     }
     static updateUser(model, userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield User_1.User.update(model, {
+            return (yield User_1.User.update(model, {
+                where: {
+                    id: userId,
+                },
+            }))[0];
+        });
+    }
+    static changePassword(userId, newPass) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield User_1.User.update({ password: newPass }, {
                 where: {
                     id: userId,
                 },

@@ -1,3 +1,4 @@
+import { Disease } from './../../diseases/models/Disease';
 import db from "../../db/models/db";
 import * as Sequelize from "sequelize";
 import { IDisease } from "../../diseases/models/Disease";
@@ -8,11 +9,11 @@ export interface IUser {
     firstName: string;
     lastName: string;
     email: string;
-    password: string;
+    password?: string;
     role?: number;
     idOfDisease?: number;
     idOfPersonalReccomandation?: number;
-    dateOfBirth?: string;
+    age?: number;
     gender?: number;
     disease?: IDisease;
     personalReccomandation?: IPersonalRecommandation;
@@ -47,11 +48,8 @@ export const User = db.define<IUser, object>("user", {
             len: [3, 255],
         },
     },
-    dateOfBirth: {
-        type: Sequelize.STRING,
-        validate: {
-            len: [0, 255],
-        },
+    age: {
+        type: Sequelize.INTEGER,
     },
     password: {
         type: Sequelize.STRING,

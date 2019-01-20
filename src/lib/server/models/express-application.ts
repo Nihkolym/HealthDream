@@ -6,6 +6,8 @@ import diseaseRouter from "../../diseases/routes/disease-router";
 import postRouter from "../../posts/routes/post-router";
 import * as core from "express-serve-static-core";
 import * as cors from "cors";
+import {Reccomandation} from "../../reccomandations/models/Recommandation";
+import { PersonalReccomandation } from "../../personalRecommandation/models/PersonalRecommandation";
 
 export class Server {
     public app: core.Express;

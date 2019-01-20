@@ -13,16 +13,16 @@ class UserRouter {
     }
 
     private setRoutes() {
-        this.router.get("/",
-            CheckRoleMiddleware.checkRole(Role.Admin),
-            UserController.getAllUsers,
-        );
+        this.router.get("/", UserController.getAllUsers);
+        this.router.get("/myRec", UserController.getMyRecommandation);
+        this.router.get("/userRec/:id", UserController.getUserRecommandation);
         this.router.get("/me", UserController.getMe);
         this.router.get("/getUserByToken", UserController.getUser);
         this.router.post("/signup", AuthController.signUp);
         this.router.post("/login", AuthController.signIn);
         this.router.delete("/:id", CheckRoleMiddleware.checkRole(Role.Admin), UserController.deleteUser);
         this.router.put("/:id", UserController.updateUser);
+        this.router.put("/:id/changePassword", UserController.changePassword);
     }
 }
 

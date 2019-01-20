@@ -1,26 +1,19 @@
+import { Disease } from "./../../diseases/models/Disease";
 import db from "../../db/models/db";
 import * as Sequelize from "sequelize";
 
 export interface IRecommandation {
     id?: number;
-    temperature: number;
-    humidity: number;
     pose: string;
     notes: string;
 }
 
-export const PersonalReccomandation
+export const Reccomandation
         = db.define<IRecommandation, IRecommandation>("recommandation", {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-    },
-    temperature: {
-        type: Sequelize.INTEGER,
-    },
-    humidity: {
-        type: Sequelize.INTEGER,
     },
     pose: {
         type: Sequelize.STRING,

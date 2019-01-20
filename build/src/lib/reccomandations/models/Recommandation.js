@@ -2,17 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const db_1 = require("../../db/models/db");
 const Sequelize = require("sequelize");
-exports.PersonalReccomandation = db_1.default.define("recommandation", {
+exports.Reccomandation = db_1.default.define("recommandation", {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-    },
-    temperature: {
-        type: Sequelize.INTEGER,
-    },
-    humidity: {
-        type: Sequelize.INTEGER,
     },
     pose: {
         type: Sequelize.STRING,

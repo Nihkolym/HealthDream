@@ -11,13 +11,16 @@ class UserRouter {
         this.setRoutes();
     }
     setRoutes() {
-        this.router.get("/", check_role_middleware_1.default.checkRole(role_1.Role.Admin), user_controller_1.default.getAllUsers);
+        this.router.get("/", user_controller_1.default.getAllUsers);
+        this.router.get("/myRec", user_controller_1.default.getMyRecommandation);
+        this.router.get("/userRec/:id", user_controller_1.default.getUserRecommandation);
         this.router.get("/me", user_controller_1.default.getMe);
         this.router.get("/getUserByToken", user_controller_1.default.getUser);
         this.router.post("/signup", auth_controller_1.AuthController.signUp);
         this.router.post("/login", auth_controller_1.AuthController.signIn);
         this.router.delete("/:id", check_role_middleware_1.default.checkRole(role_1.Role.Admin), user_controller_1.default.deleteUser);
         this.router.put("/:id", user_controller_1.default.updateUser);
+        this.router.put("/:id/changePassword", user_controller_1.default.changePassword);
     }
 }
 const userRouter = new UserRouter();

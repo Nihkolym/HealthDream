@@ -43,4 +43,3 @@ Post.belongsTo(User, {
 });
 
 User.hasMany(Post);
-

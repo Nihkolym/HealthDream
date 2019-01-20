@@ -1,3 +1,4 @@
+import { Reccomandation } from './../../reccomandations/models/Recommandation';
 import db from "../../db/models/db";
 import * as Sequelize from "sequelize";
 import { IRecommandation } from "../../reccomandations/models/Recommandation";
@@ -6,7 +7,7 @@ export interface IDisease {
     id?: number;
     name: string;
     idOfRecommendation: number;
-    recommendation?: IRecommandation;
+    recommandation?: IRecommandation;
 }
 
 export const Disease = db.define<IDisease, IDisease>("disease", {
@@ -30,3 +31,5 @@ export const Disease = db.define<IDisease, IDisease>("disease", {
 {
     timestamps: false,
 });
+
+Disease.belongsTo(Reccomandation, {foreignKey: "idOfRecommendation"});

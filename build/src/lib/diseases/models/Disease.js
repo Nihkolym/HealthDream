@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const Recommandation_1 = require("./../../reccomandations/models/Recommandation");
 const db_1 = require("../../db/models/db");
 const Sequelize = require("sequelize");
 exports.Disease = db_1.default.define("disease", {
@@ -22,3 +23,4 @@ exports.Disease = db_1.default.define("disease", {
 }, {
     timestamps: false,
 });
+exports.Disease.belongsTo(Recommandation_1.Reccomandation, { foreignKey: "idOfRecommendation" });
